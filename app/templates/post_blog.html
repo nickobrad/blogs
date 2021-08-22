@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        Cactus
+    {% endif %}
+{% endblock title %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid pbWrapper">
+    <div class="row rowpost">
+        <div class="col-lg-4 photocol">
+            <div class="pageimage">
+                <img src="{{ url_for('static', filename="images/post.jpeg")}}" class = "img-responsive" style="height: max-content; width: 300px;" alt="" srcset="">
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="blogpostform">
+                <form action="{{url_for('main.post_blog')}}" method="post">
+                    {{ post_blog_form.hidden_tag()}}
+                    <div class="form-floating mb-3">
+                        {{ post_blog_form.blog_title(class_="form-control") }}
+                        {{ post_blog_form.blog_title.label }}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {{ post_blog_form.blog_post(class_="form-control blogarea") }}
+                        {{ post_blog_form.blog_post.label }}
+                    </div>
+                    <div class="submit">
+                        <input class="submitbtn" type="submit" value="Post Blog">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

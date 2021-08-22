@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% import 'macro.html' as macro %}
+
+{% block title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        Update my Blog Post
+    {% endif %}
+{% endblock title %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock %} 
+
+{% block content %}
+<form action="{{ url_for('main.update_blog', id = blogs.id) }}" method="post">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="title" name="title" value = "{{ request.form['title'] or blogs['blog_title'] }}" placeholder="Title" required>
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" id="blog" name="blog" placeholder="Your Blog post" id="floatingTextarea2" style="height: 100px">
+        {{ request.form['blog'] or blogs['blog_posted'] }}
+        </textarea>
+        <label for="blog">Blog</label>
+    </div>
+    <input type="submit" value="Save">
+</form>
+{% endblock content %}

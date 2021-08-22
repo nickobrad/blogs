@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock %} 
+
+{% block title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        Login
+    {% endif %}
+{% endblock title %}
+
+{% block content %} 
+    <div class="container-fluid login_container">
+        <div class="login_form">
+            <form action = "{{url_for('authentication.login')}}" method="post">
+                {{ login_form.hidden_tag()}} 
+
+                <div class="form-floating mb-3">
+                    {{ login_form.username(class_="form-control") }}
+                    {{ login_form.username.label}}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ login_form.password(class_="form-control") }}
+                    {{ login_form.password.label}}
+                </div>
+                <div class="submit">
+                    <input class = "submitbtn" type = "submit" value = "Login">
+                </div>
+            </form>
+            <div class="register_text">
+                
+                <p> Don't have an account? <a href="{{url_for('authentication.register')}}">Sign up here</a></p>
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}

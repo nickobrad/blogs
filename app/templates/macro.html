@@ -1,0 +1,84 @@
+{% macro showBlogPosts(blogs) %}
+    {% for blog in blogs %}
+    <div class="card cardhp" style="width: 18rem;">
+        <img src = "{{ url_for('static', filename = blog.myblogposts.profile_picture) }}" class="card-img-top img-responsive" style="height: 200px;width: 200px;" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">
+                {{ blog.blog_title }}
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                {{ blog.myblogposts.username }} | {{ blog.date_posted.strftime('%Y-%m-%d') }}
+            </h6>
+            <p class="card-text">
+                {{ blog.blog_posted | truncate (200)}}
+            </p>
+            <a href="{{ url_for('main.theblog', id = blog.id)}}" class="btn btn-primary">
+                See complete post
+            </a>
+        </div>
+      </div>
+
+    {% endfor %}
+{% endmacro %} 
+
+{% macro showBlogProfile(blogs) %}
+    {% for blog in blogs %}
+    <div class="card cardbp" style="width: auto;">
+        <img src="{{ url_for('static', filename='profile_pictures/default.jpeg')}}" class="card-img-top" style="height: max-height;width: 300px;" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">
+                {{ blog.blog_title }}
+            </h5>
+            
+            <p class="card-text">
+                {{ blog.blog_posted | truncate (150)}}
+            </p>
+            <a href="{{ url_for('main.delete_post', id = blog.id)}}" class="btn btn-danger">
+                Delete Post
+            </a>
+                <a href="{{ url_for('main.update_blog', id = blog.id)}}" class="btn btn-success">
+                Update Post
+            </a>
+            
+        </div>
+      </div>
+    {% endfor %} 
+{% endmacro %}
+
+{% macro BlogMain(blog) %}
+    <div class="mainblog">
+        <h5>
+            {{ blog.blog_title }}
+        </h5>
+        <h6 class = "mb-2 text-muted">
+            {{ blog.date_posted.strftime('%Y-%m-%d') }}
+        </h6>
+        <p>
+            {{ blog.blog_posted}}
+        </p>
+    </div>
+{% endmacro %}
+
+{% macro showBlogComments(comments) %}
+    {% for comment in comments %}
+    <div class="commentcont">
+        <div class="comimg">
+            {% if comment.myblogcomments.profile_picture %}
+                <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 50px; width: 50px;" alt="" srcset="">
+            {% else %}
+                <img src="{{url_for('static', filename = 'profile_pictures/default.jpeg') }}" style="height: 50px; width: 50px;" alt="" srcset="">
+            {% endif %}
+        </div>
+        <div class="comcontent">
+            <p>
+                {{comment.myblogcomments.username }}: {{ comment.comment }}
+            </p>
+                <p>
+                    <a href="{{ url_for('main.delete_comment', id = comment.id) }}">
+                        Delete comment
+                    </a>
+                </p>
+        </div>
+    </div>
+    {% endfor %}
+{% endmacro %}

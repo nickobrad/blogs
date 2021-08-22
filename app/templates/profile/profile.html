@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% import 'macro.html' as macro %}
+
+{% block title %}
+{% if title %}
+{{ title }}
+{% else %}
+My Profile
+{% endif %}
+{% endblock title %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid profileWrapper">
+    <div class="row prow">
+        <div class="col-md-4 pc1">
+            {% if user.profile_picture %}
+            <div class="pic">
+                <img src="{{ url_for('static', filename = user.profile_picture)}}" alt="" class="img-fluid" srcset=""
+                    style="height: 300px; width: 300px; padding_top: 20px">
+            </div>
+            {% else %}
+            <div class="pic">
+                <img src="{{ url_for('static', filename = 'profile_pictures/default.jpeg')}}" alt="" class="img-fluid"
+                    srcset="" style="height: 300px; width: 300px; padding-top: 20px">
+            </div>
+            {% endif %}
+            <div class="modalwrap">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Upload Photo
+                </button>
+    
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Upload Photo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{url_for('main.update_profile')}}" method = "POST" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Upload Photo:</label>
+                                        <input class="form-control" type="file" id="photo" name = "photo">
+                                    </div>
+                                </div> 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-light">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            <hr>
+            <div class="texts">
+                <h4>
+                    Names
+                </h4>
+                <p>
+                    {{ user.firstname}} {{ user.secondname }}
+                </p>
+            </div>
+            <div class="texts">
+                <h4>
+                    Username
+                </h4>
+                <p>
+                    {{ user.username }}
+                </p>
+            </div>
+            <div class="texts">
+                <h4>
+                    Email
+                </h4> 
+                <p>
+                    {{ user.email }}
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-8 showblogs">
+            <h5>
+                My Blog Posts
+            </h5>
+            {% if myblogs %}
+                <div class="posts">
+                    {{ macro.showBlogProfile(myblogs) }}
+                </div>
+            {% else %}
+                <div class="posts">
+                    <p>
+                        You have no blog posts.
+                    </p>
+                    <p>
+                        Click <a href="{{ url_for('main.post_blog') }}"> here </a> to make one
+                    </p>
+                </div>
+            {% endif %} 
+            
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% import 'macro.html' as macro %}
+
+{% block title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        Post it Up
+    {% endif %}
+{% endblock title %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid oneblogWrap">
+    <div class="obcontent">
+        <div class="theblogwrap">
+            {{ macro.BlogMain(blog) }} 
+        </div>
+    </div>
+    <div class="commentform">
+        <form action="{{ url_for('main.make_comment', id = blog.id) }}" method="post">
+            {{ blog_comment_form.hidden_tag() }}
+            <div class="form-floating mb-3 commentText">
+                {{ blog_comment_form.comment(class_="form-control") }}
+                {{ blog_comment_form.comment.label}}
+            </div>
+            <div class="submit">
+                <input class="submitbtn" type="submit" value="Comment">
+            </div>
+        </form> 
+    </div>
+    <hr>
+    <div class="commsecttitle" style="text-align: center;">
+        <h5>
+            The Comments
+        </h5>
+    </div>
+    <hr>
+    <div class="commsect">
+        {% for comment in blog_comments %}
+            <div class="commentcont">
+                <div class="comimg">
+                    {% if comment.myblogcomments.profile_picture %}
+                        <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 50px; width: 50px;" alt="" srcset="">
+                    {% else %}
+                        <img src="{{url_for('static', filename = 'profile_pictures/default.jpeg') }}" style="height: 50px; width: 50px;" alt="" srcset="">
+                    {% endif %}
+                </div>
+                <div class="comcontent">
+                    <p>
+                        {{comment.myblogcomments.username }}: {{ comment.comment }}
+                    </p>
+                    {% if comment.user_id == current_user.id %}
+                        <p>
+                            <a href="{{ url_for('main.delete_comment', id = comment.id) }}">
+                                Delete comment
+                            </a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+<!-- {{ macro.showBlogComments(blog_comments) }} -->

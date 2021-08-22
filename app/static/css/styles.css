@@ -1,0 +1,209 @@
+body, html{
+    width: 100%;
+    height:100%;
+}
+.header1{
+    height: 50%;
+    background-color: aqua;
+    position: relative;
+}
+.head1{
+    position: absolute;
+    left: 2.5%;
+    top: 10%;
+}
+.head2{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.head3{
+    position: absolute;
+    right:2.5%;
+    bottom: 10%;
+    text-align: center;
+}
+.heading4{
+    text-align: center;
+    text-decoration: wavy;
+    border-bottom: 1px solid black;
+    padding: 5px 0px;
+}
+.hpblog{ 
+    padding: 10px 0px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.hpblogcomment{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    padding: 10px 0px;
+}
+.indexWrapper{
+    width: 100% 100%;
+    height: 100% 100%;
+}
+.rowhp{
+    background-color: blue;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.colhp{
+    width: 100%;
+    background-color: crimson;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.posts{
+    padding: 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.card{
+    margin:10px 10px;
+}
+.col-lg-8{
+    /* background-color: aqua; */
+}
+.login_container{
+    background-color: blue;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+    /* opacity: 0.8; */
+    width: 60%;
+    height: 50%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+.register_text{
+    padding-top: 10px;
+}
+.register_container{
+    height: 100%;
+    background-color: crimson;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register_form{
+    width:75%;
+}
+.oneblogWrap{
+    height: 100% 100%;
+    background-color: darkslategray;
+}
+.commentText{
+    width: 500px;
+    background-color: blue;
+}
+.commentform{
+    background-color: aquamarine;
+    width:100%;
+    display: flex;
+    align-items: center;
+    height: 20%;
+    justify-content: center;
+}
+.obcontent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+.theblogwrap{
+    width: 80%;
+}
+.commsect{
+}
+.commentcont{
+    display: flex;
+    background-color:wheat;
+    width: 50%;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.comcontent{
+    padding-left: 20px;
+}
+.photocol{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pbWrapper{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslategray;
+
+}
+.rowpost{
+    height: 80%;
+    width: 80%;
+    border: 1px solid lightslategray;
+    border-radius: 10px;
+    background-color:lightslategray;
+}
+.blogpostform{
+    padding-top: 15px;
+}
+.blogarea{
+    height: 400px;
+}
+.cardhp{
+    display: flex !important;
+    align-items: center;
+}
+.cardbp{
+    display: flex !important;
+    flex-direction: row !important;
+    height: 200px;
+}
+.texts{
+    text-align: center;
+}
+.pc1{
+    background-color:black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pic{
+    height:50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn{
+    margin-top: 20px;
+}
+.profileWrapper, .prow{
+    height:100%;
+}
+.showblogs{
+    padding-top: 20px;
+    background-color: gainsboro;
+}
