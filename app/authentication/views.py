@@ -10,7 +10,7 @@ from . import authentication
 def login():
 
     title = "Log into Blogs"
-    login_form = LoginForm()
+    login_form = LoginForm() 
     if login_form.validate_on_submit():
         username = login_form.username.data
         password  = login_form.password.data

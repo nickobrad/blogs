@@ -18,7 +18,7 @@
 <div class="container-fluid oneblogWrap">
     <div class="obcontent">
         <div class="theblogwrap">
-            {{ macro.BlogMain(blog) }} 
+            {{ macro.BlogMain(blog) }}  
         </div>
     </div>
     <div class="commentform">
@@ -43,9 +43,9 @@
     <div class="commsect">
         {% for comment in blog_comments %}
             <div class="commentcont">
-                <div class="comimg">
+                <div class="comimg"> 
                     {% if comment.myblogcomments.profile_picture %}
-                        <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 50px; width: 50px;" alt="" srcset="">
+                        <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 55px; width: 50px;" alt="" srcset="">
                     {% else %}
                         <img src="{{url_for('static', filename = 'profile_pictures/default.jpeg') }}" style="height: 50px; width: 50px;" alt="" srcset="">
                     {% endif %}
@@ -63,7 +63,7 @@
                     {% endif %}
                 </div>
             </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
 {% endblock content %}

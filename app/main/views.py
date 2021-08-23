@@ -6,25 +6,40 @@ from flask_login import login_required, current_user
 from ..models.user import User
 from ..models.blog_post import Blog
 from ..models.blog_comment import BlogComment
-from app.main.forms import BlogPostCommentForm, BlogPostForm
+from ..models.subscribers import Subscribers
+from app.main.forms import BlogPostCommentForm, BlogPostForm, SubscriberForm
 from ..requests import get_quote
+from ..email import mail_message
 
 
-@main.route('/home')
+@main.route('/home', methods = ['POST','GET'])
 @login_required
 def home():
+    subscribe_form = SubscriberForm()
+
     title = "Welcome to Blogs"
     quote = get_quote()
     blogs2 = db.session.execute(
         'SELECT * FROM blogs ORDER BY date_posted ASC;'
     ).all()
     blogs = Blog.query.all()
-    return render_template('index.html', title = title, blogs = blogs, quote = quote)
+
+    if subscribe_form.validate_on_submit():
+        firstname = subscribe_form.firstname.data
+        lastname = subscribe_form.lastname.data
+        email = subscribe_form.email.data
+        new_subscriber = Subscribers(firstname = firstname, lastname = lastname, email  = email)
+        db.session.add(new_subscriber)
+        db.session.commit()
+        return redirect(url_for('main.home'))
+        
+    return render_template('index.html', title = title, blogs = blogs, quote = quote, subscribe_form = subscribe_form)
 
 @main.route('/post/blog', methods = ['GET', 'POST'])
 @login_required
 def post_blog():
 
+    users = User.query.all()
     post_blog_form = BlogPostForm()
     title = "Post a blog"
 
@@ -34,6 +49,10 @@ def post_blog():
         blog_post = Blog(blog_title = title, blog_posted = blog, user_id = current_user.id)
         db.session.add(blog_post)
         db.session.commit()
+
+        for user in users:
+            mail_message("New Post on Blogzy", "email/newpost", user.email, user = user, user2 = blog_post.myblogposts.username)
+
         return redirect(url_for('main.home'))
     
     return render_template('post_blog.html', post_blog_form = post_blog_form, title = title)
@@ -57,7 +76,7 @@ def make_comment(id):
 
 @main.route('/view/blog/<int:id>', methods = ['POST', 'GET'])
 @login_required
-def theblog(id):
+def theblog(id): 
 
     blog_comment_form = BlogPostCommentForm()
     blog_post = Blog.query.filter_by(id = id).first()
@@ -109,7 +128,7 @@ def update_profile():
         else:
             return redirect(url_for('main.my_profile', id = user.id))
             
-    return redirect(url_for('main.profile', id = user.id))
+    return redirect(url_for('main.my_profile', id = user.id))
 
 @main.route('/blog/update/<int:id>', methods = ['GET', 'POST'])
 @login_required
@@ -128,7 +147,7 @@ def update_blog(id):
         if error is not None:
             flash(error)
         else:
-            db.session(
+            db.session.execute(
                 'UPDATE blogs SET blog_title = ?, blog_posted = ?'
                 'WHERE id = ?',
                 (title, blog,id)
@@ -158,3 +177,4 @@ def delete_comment(id):
     db.session.commit()
 
     return redirect(url_for('main.theblog', id = blogcomment.blog_id))
+

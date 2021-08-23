@@ -15,17 +15,31 @@
 {% endblock %} 
 
 {% block content %}
-<form action="{{ url_for('main.update_blog', id = blogs.id) }}" method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="title" name="title" value = "{{ request.form['title'] or blogs['blog_title'] }}" placeholder="Title" required>
-        <label for="floatingInput">Email address</label>
+<div class="container-fluid pbWrapper">
+    <div class="row rowpost">
+        <div class="col-lg-4 photocol"> 
+            <div class="pageimage">
+                <img src="{{ url_for('static', filename="images/post.jpeg")}}" class = "img-responsive" style="height: max-content; width: 300px;" alt="" srcset="">
+            </div>
+        </div>
+        <div class="col-lg-8">  
+            <div class="blogpostform">
+                <form action="{{ url_for('main.update_blog', id = blogs.id) }}" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="title" name="title" value = "{{ request.form['title'] or blogs['blog_title'] }}" placeholder="Title" required>
+                        <label for="floatingInput">Title</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="blog" name="blog" placeholder="Your Blog post" id="floatingTextarea2" style="height: 300px">
+                        {{ request.form['blog'] or blogs['blog_posted'] }}
+                        </textarea>
+                        <label for="blog">Blog</label>
+                    </div>
+                    <input type="submit" value="Save">
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-floating">
-        <textarea class="form-control" id="blog" name="blog" placeholder="Your Blog post" id="floatingTextarea2" style="height: 100px">
-        {{ request.form['blog'] or blogs['blog_posted'] }}
-        </textarea>
-        <label for="blog">Blog</label>
-    </div>
-    <input type="submit" value="Save">
-</form>
+</div>
 {% endblock content %}
+

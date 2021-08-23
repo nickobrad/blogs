@@ -1,10 +1,10 @@
 {% macro showBlogPosts(blogs) %}
     {% for blog in blogs %}
     <div class="card cardhp" style="width: 18rem;">
-        <img src = "{{ url_for('static', filename = blog.myblogposts.profile_picture) }}" class="card-img-top img-responsive" style="height: 200px;width: 200px;" alt="...">
+        <img src = "{{ url_for('static',filename = blog.myblogposts.profile_picture) }}" class="card-img-top" style="height: 200px;width: 200px;">
         <div class="card-body">
             <h5 class="card-title">
-                {{ blog.blog_title }}
+                {{ blog.blog_title }} 
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">
                 {{ blog.myblogposts.username }} | {{ blog.date_posted.strftime('%Y-%m-%d') }}
@@ -15,7 +15,7 @@
             <a href="{{ url_for('main.theblog', id = blog.id)}}" class="btn btn-primary">
                 See complete post
             </a>
-        </div>
+        </div> 
       </div>
 
     {% endfor %}
@@ -24,7 +24,6 @@
 {% macro showBlogProfile(blogs) %}
     {% for blog in blogs %}
     <div class="card cardbp" style="width: auto;">
-        <img src="{{ url_for('static', filename='profile_pictures/default.jpeg')}}" class="card-img-top" style="height: max-height;width: 300px;" alt="...">
         <div class="card-body">
             <h5 class="card-title">
                 {{ blog.blog_title }}
@@ -51,7 +50,7 @@
             {{ blog.blog_title }}
         </h5>
         <h6 class = "mb-2 text-muted">
-            {{ blog.date_posted.strftime('%Y-%m-%d') }}
+            Posted by: {{ blog.myblogposts.username }} | {{ blog.date_posted.strftime('%Y-%m-%d') }}
         </h6>
         <p>
             {{ blog.blog_posted}}

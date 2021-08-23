@@ -1,0 +1,3 @@
+Hello {{user.username}}!
+Welcome to Blogzy.
+A new blog post is up. Feel free to go through the website and see the post

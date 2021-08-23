@@ -16,12 +16,12 @@
 {% block content %}
 <div class="container-fluid pbWrapper">
     <div class="row rowpost">
-        <div class="col-lg-4 photocol">
+        <div class="col-lg-4 photocol"> 
             <div class="pageimage">
                 <img src="{{ url_for('static', filename="images/post.jpeg")}}" class = "img-responsive" style="height: max-content; width: 300px;" alt="" srcset="">
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8">  
             <div class="blogpostform">
                 <form action="{{url_for('main.post_blog')}}" method="post">
                     {{ post_blog_form.hidden_tag()}}
