@@ -41,29 +41,36 @@
     </div>
     <hr>
     <div class="commsect">
-        {% for comment in blog_comments %}
-            <div class="commentcont">
-                <div class="comimg"> 
-                    {% if comment.myblogcomments.profile_picture %}
-                        <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 55px; width: 50px;" alt="" srcset="">
-                    {% else %}
-                        <img src="{{url_for('static', filename = 'profile_pictures/default.jpeg') }}" style="height: 50px; width: 50px;" alt="" srcset="">
-                    {% endif %}
-                </div>
-                <div class="comcontent">
-                    <p>
-                        {{comment.myblogcomments.username }}: {{ comment.comment }}
-                    </p>
-                    {% if comment.user_id == current_user.id %}
+        {% if blog_comments %}
+            {% for comment in blog_comments %}
+                <div class="commentcont">
+                    <div class="comimg"> 
+                        {% if comment.myblogcomments.profile_picture %}
+                            <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 55px; width: 50px;" alt="" srcset="">
+                        {% else %}
+                            <img src="{{url_for('static', filename = 'profile_pictures/default.jpeg') }}" style="height: 50px; width: 50px;" alt="" srcset="">
+                        {% endif %}
+                    </div>
+                    <div class="comcontent">
                         <p>
-                            <a href="{{ url_for('main.delete_comment', id = comment.id) }}">
-                                Delete comment
-                            </a>
+                            {{comment.myblogcomments.username }}: {{ comment.comment }}
                         </p>
-                    {% endif %}
+                        {% if comment.user_id == current_user.id %}
+                            <p>
+                                <a href="{{ url_for('main.delete_comment', id = comment.id) }}">
+                                    Delete comment
+                                </a>
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>
+                This post has no comments at the moment. Be the first to commment.
+            </p>
+        {% endif %}
+        
     </div>
 </div>
 {% endblock content %}

@@ -30,8 +30,14 @@ class DevConfig(Config):
     DEBUG = True
 
 class ProdConfig(Config):
+    SECRET_KEY = secrets.token_hex(16)
+    SQLALCHEMY_DATABASE_URI = os.environ.get('RANDOM_URI')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    DATABASE = 'd7fjuql4lnqec9'
+    POSTGRES_USER = 'exawszgayavjbf'
+    POSTGRES_PASSWORD = 'bfb19b743e3241198149e5ea2f33396c0b835e952bc467160521c71dfe543bc7'
 
-    pass
 
 class TestConfig(Config):
 

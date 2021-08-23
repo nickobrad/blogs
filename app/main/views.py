@@ -19,10 +19,11 @@ def home():
 
     title = "Welcome to Blogs"
     quote = get_quote()
-    blogs2 = db.session.execute(
-        'SELECT * FROM blogs ORDER BY date_posted ASC;'
+    blog = db.session.execute(
+        'SELECT * FROM blogs ORDER BY date_posted DESC;'
     ).all()
     blogs = Blog.query.all()
+
 
     if subscribe_form.validate_on_submit():
         firstname = subscribe_form.firstname.data
@@ -138,22 +139,13 @@ def update_blog(id):
 
     if request.method == 'post':
         title = request.form['title']
-        blog = request.form['blog']
-        error = None
-
-        if not title:
-            error = 'A blog title is required'
-
-        if error is not None:
-            flash(error)
-        else:
-            db.session.execute(
-                'UPDATE blogs SET blog_title = ?, blog_posted = ?'
-                'WHERE id = ?',
-                (title, blog,id)
-            )
-            db.commit()
-            return redirect(url_for('main.my_profile', id = current_user.id))
+        blog = request.form['blog'] 
+        # blogss = Blog.query.filter_by(id = id).update(dict(blog_post = blog))    
+        # blogs.blog_title = title
+        # blogs.blog_posted = blog
+        
+        db.session.commit()
+        return redirect(url_for('main.my_profile', id = current_user.id))
         
     return render_template('update_blog.html', blogs = blogs)
 
