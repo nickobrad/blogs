@@ -18,7 +18,7 @@ class Config:
 
     QUOTE_API_URL =  'http://quotes.stormconsultancy.co.uk/random.json'
 
-    SECRET_KEY = secrets.token_hex(16)
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://omondii:2325@localhost/blogs'
 
