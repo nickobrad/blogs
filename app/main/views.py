@@ -137,13 +137,11 @@ def update_blog(id):
 
     blogs = Blog.query.filter_by(id = id).first()
 
-    if request.method == 'post':
+    if request.form:
         title = request.form['title']
         blog = request.form['blog'] 
-        # blogss = Blog.query.filter_by(id = id).update(dict(blog_post = blog))    
-        # blogs.blog_title = title
-        # blogs.blog_posted = blog
-        
+        blogs.blog_title = title
+        blogs.blog_posted = blog
         db.session.commit()
         return redirect(url_for('main.my_profile', id = current_user.id))
         

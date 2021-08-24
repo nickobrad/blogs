@@ -36,7 +36,7 @@
     <hr>
     <div class="commsecttitle" style="text-align: center;">
         <h5>
-            The Comments
+            The Comments ({{ blog_comments | count() }})
         </h5>
     </div>
     <hr>
@@ -46,20 +46,28 @@
                 <div class="commentcont">
                     <div class="comimg"> 
                         {% if comment.myblogcomments.profile_picture %}
-                            <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 55px; width: 50px;" alt="" srcset="">
+                            <img src="{{url_for('static', filename = comment.myblogcomments.profile_picture) }}" style="height: 60px; width: 50px;" alt="" srcset="">
                         {% else %}
                             <img src="{{url_for('static', filename = 'profile_pictures/default.jpeg') }}" style="height: 50px; width: 50px;" alt="" srcset="">
                         {% endif %}
                     </div>
                     <div class="comcontent">
-                        <p>
-                            {{comment.myblogcomments.username }}: {{ comment.comment }}
-                        </p>
                         {% if comment.user_id == current_user.id %}
+                            <p style="font-style: italic; font-weight: bolder;">
+                                User: {{comment.myblogcomments.username }}
+                            </p>
                             <p>
-                                <a href="{{ url_for('main.delete_comment', id = comment.id) }}">
-                                    Delete comment
-                                </a>
+                                Comment: {{ comment.comment }} 
+                            </p>
+                            <p>
+                                <a href="{{ url_for('main.delete_comment', id = comment.id) }}">Delete comment</a>
+                            </p>
+                        {% else %}
+                            <p style="font-style: italic; font-weight: bolder;">
+                                User: {{comment.myblogcomments.username }}
+                            </p>
+                            <p>
+                                Comment: {{ comment.comment }} 
                             </p>
                         {% endif %}
                     </div>

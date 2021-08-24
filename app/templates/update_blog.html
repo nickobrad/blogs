@@ -26,12 +26,12 @@
             <div class="blogpostform">
                 <form action="{{ url_for('main.update_blog', id = blogs.id) }}" method="post">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="title" name="title" value = "{{ request.form['title'] or blogs['blog_title'] }}" placeholder="Title" required>
+                        <input type="text" class="form-control" id="title" name="title" value = "{{ request.form['title'] or blogs['blog_title'] or title }}" placeholder="Title" required>
                         <label for="floatingInput">Title</label>
                     </div>
                     <div class="form-floating">
-                        <textarea class="form-control" id="blog" name="blog" placeholder="Your Blog post" id="floatingTextarea2" style="height: 300px">
-                        {{ request.form['blog'] or blogs['blog_posted'] }}
+                        <textarea class="form-control" id="blog" name="blog" value = "{{ blog }}" placeholder="Your Blog post" id="floatingTextarea2" style="height: 300px">
+                        {{ request.form['blog'] or blogs['blog_posted'] or blog}}
                         </textarea>
                         <label for="blog">Blog</label>
                     </div>
