@@ -30,7 +30,6 @@ class DevConfig(Config):
     DEBUG = True
 
 class ProdConfig(Config):
-    SECRET_KEY = secrets.token_hex(16)
     SQLALCHEMY_DATABASE_URI = os.environ.get('RANDOM_URI')
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
