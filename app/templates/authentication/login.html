@@ -15,7 +15,7 @@
 {% endblock title %} 
 
 {% block content %} 
-    <div class="container-fluid login_container">
+    <div class="container-fluid login_container"> 
         <div class="login_form">
             <form action = "{{url_for('authentication.login')}}" method="post">
                 {{ login_form.hidden_tag()}} 

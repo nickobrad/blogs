@@ -10,6 +10,7 @@ from ..models.subscribers import Subscribers
 from app.main.forms import BlogPostCommentForm, BlogPostForm, SubscriberForm
 from ..requests import get_quote
 from ..email import mail_message
+from sqlalchemy import desc
 
 
 @main.route('/home', methods = ['POST','GET'])
@@ -23,6 +24,7 @@ def home():
         'SELECT * FROM blogs ORDER BY date_posted DESC;'
     ).all()
     blogs = Blog.query.all()
+    blogs2 = Blog.query.order_by(desc('date_posted'))
 
 
     if subscribe_form.validate_on_submit():
@@ -34,7 +36,7 @@ def home():
         db.session.commit()
         return redirect(url_for('main.home'))
         
-    return render_template('index.html', title = title, blogs = blogs, quote = quote, subscribe_form = subscribe_form)
+    return render_template('index.html', title = title, blogs = blogs2, quote = quote, subscribe_form = subscribe_form)
 
 @main.route('/post/blog', methods = ['GET', 'POST'])
 @login_required
