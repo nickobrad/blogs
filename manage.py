@@ -6,7 +6,7 @@ from app.models.blog_comment import BlogComment
 from flask_migrate import Migrate, MigrateCommand
 
 # Creating app instance
-app = create_app('development')
+app = create_app('production')
 
 @app.before_first_request
 def create_tables():
